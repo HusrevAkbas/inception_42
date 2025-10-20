@@ -1,0 +1,10 @@
+FROM	alpine:3.21.5
+
+RUN	apk update; apk add --no-cache mariadb mariadb-client
+
+COPY	./tools/starter.sh ./starter.sh
+
+RUN	chmod +x ./starter.sh; mkdir -p /run/maria/; chmod 777 /run/maria/; chown -R mysql /var/lib/mysql
+
+ENTRYPOINT ["./starter.sh"]
+
