@@ -14,5 +14,6 @@ clean:
 
 f: fclean
 fclean: clean
+	docker volume rm $(shell docker volume ls -q)
 	docker system prune -af
 	rm -rf /home/huakbas/data/*

@@ -4,12 +4,13 @@ echo "This is STARTER script"
 
 set -e
 
-DATADIR=/var/lib/maria
+DATADIR=/var/lib/mysql
 
 signal_terminate_trap()
 {
 	mariadb-admin shutdown & wait $!
 	echo "MariaDB shot down successfully"
+	exit 0
 }
 
 trap "signal_terminate_trap" SIGTERM

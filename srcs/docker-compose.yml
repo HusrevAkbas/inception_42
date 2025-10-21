@@ -20,9 +20,18 @@ services:
    - db_adminpass
    - db_dbname
   volumes:
-   - /home/huakbas/data/db/:/lib/var/maria/:rw
+#   - /home/huakbas/data/db/:/var/lib/maria/:rw
+   - mariadb_data:/var/lib/mysql/
    - ./requirements/mariadb/conf/my.cnf:/etc/my.cnf
    - ./requirements/mariadb/conf/my.cnf.d/:/etc/my.cnf.d
+
+volumes:
+ mariadb_data:
+  name: mariadb-database
+  driver_opts:
+   type: none
+   o: "bind, rw"
+   device: "/home/huakbas/data/db"
 
 secrets:
  db_root_password:

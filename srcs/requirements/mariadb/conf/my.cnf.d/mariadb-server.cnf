@@ -18,7 +18,7 @@ log_error=/var/log/maria/error_safe.log
 [mariadbd]
 user=mysql
 
-datadir=/var/lib/maria/
+datadir=/var/lib/mysql/
 socket=/run/maria/maria.sock
 
 character_set_server=utf8mb4
