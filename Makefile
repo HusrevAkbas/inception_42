@@ -1,5 +1,5 @@
 up:
-	mkdir -p /home/huakbas/data/db /home/huakbas/data/wp
+	mkdir -p /home/huakbas/data/db/ /home/huakbas/data/wp/
 	docker-compose -f ./srcs/docker-compose.yml up
 
 down:
@@ -13,6 +13,6 @@ clean:
 	-docker rmi $(shell docker images -q)
 
 f: fclean
-fclean:
+fclean: clean
 	docker system prune -af
 	rm -rf /home/huakbas/data/*

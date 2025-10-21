@@ -5,14 +5,37 @@ services:
   build: ./requirements/mariadb/
   environment:
    MARIADB_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
-   MARIADB_PASSWORD: /run/secrets/db_password
+   MARIADB_MYSQLPASS_FILE: /run/secrets/db_mysqlpass
+   MARIADB_USERNAME_FILE: /run/secrets/db_username
+   MARIADB_USERPASS_FILE: /run/secrets/db_userpass
+   MARIADB_ADMINNAME_FILE: /run/secrets/db_adminname
+   MARIADB_ADMINPASS_FILE: /run/secrets/db_adminpass
+   MARIADB_DBNAME_FILE: /run/secrets/db_dbname
+  secrets:
+   - db_root_password
+   - db_mysqlpass
+   - db_username
+   - db_userpass
+   - db_adminname
+   - db_adminpass
+   - db_dbname
   volumes:
-   - /home/huakbas/data/mysql/:/lib/var/maria/:rw
+   - /home/huakbas/data/db/:/lib/var/maria/:rw
    - ./requirements/mariadb/conf/my.cnf:/etc/my.cnf
    - ./requirements/mariadb/conf/my.cnf.d/:/etc/my.cnf.d
 
 secrets:
  db_root_password:
   file: ../secrets/db_root_password.txt
- db_password:
+ db_mysqlpass:
   file: ../secrets/db_password.txt
+ db_username:
+  file: ../secrets/wp_user_name.txt
+ db_userpass:
+  file: ../secrets/wp_user_password.txt
+ db_adminname:
+  file: ../secrets/wp_admin_name.txt
+ db_adminpass:
+  file: ../secrets/wp_admin_password.txt
+ db_dbname:
+  file: ../secrets/wp_db_name.txt
