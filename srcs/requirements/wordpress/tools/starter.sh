@@ -15,4 +15,5 @@ signal_terminate_trap()
 
 trap "signal_terminate_trap" SIGTERM
 
-#exec /var/sbin/php-fpm8.4
+# -F: keeps php-fpm in foreground, -R force porgram run as root
+php-fpm84 -F -R
