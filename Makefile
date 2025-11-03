@@ -1,5 +1,9 @@
+LOGIN	= $(shell sed 's/LOGIN=//g' .env)
+
 up:
-	mkdir -p /home/huakbas/data/db/ /home/huakbas/data/wp/
+	-echo $(shell sed 's/LOGIN=//' .env)
+	mkdir -p /home/$(LOGIN)/data/db/ /home/$(LOGIN)/data/wp/
+#	chmod -R 777 /home/$(LOGIN)/data
 	docker-compose -f ./srcs/docker-compose.yml up
 
 down:
@@ -16,5 +20,5 @@ f: fclean
 fclean: clean
 	-docker volume rm $(shell docker volume ls -q)
 	-docker system prune -af
-	-sudo rm -rf /home/huakbas/data/* < ./secrets/sudo
+	-sudo rm -rf /home/$(LOGIN)/data/*
 	

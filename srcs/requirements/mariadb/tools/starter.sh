@@ -17,6 +17,8 @@ trap "signal_terminate_trap" SIGTERM
 
 if [ ! -f $DATADIR/ibdata1 ]; then
 
+	rm -rf /tmp/maria.sock
+
 	# install db
 	mariadb-install-db --user=mysql --datadir=$DATADIR\
 		--auth-root-authentication-method=socket & wait $!

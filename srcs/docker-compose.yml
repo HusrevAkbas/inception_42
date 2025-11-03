@@ -1,8 +1,49 @@
+version: '3'
+
 services:
+ nginx:
+  container_name: nginx
+  image: nginx:0
+  build: ./requirements/nginx/
+  ports:
+   - 8080:80
+  volumes:
+   - ./requirements/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:rw 
+   - wordpress_site:/var/www/html/
+  networks:
+   - inception
+  depends_on:
+   - wordpress
+
+ wordpress:
+  container_name: wordpress
+  image: wordpress:0
+  build: ./requirements/wordpress/
+  ports:
+   - 9000:9000
+  volumes:
+   - ./requirements/wordpress/conf/wp.conf:/etc/php84/php-fpm.d/wp.conf:rw
+   - wordpress_site:/var/www/html/
+  environment:
+   WORDPRESS_DB_HOST: mariadb:3306
+   WORDPRESS_DB_USER_FILE: db_username
+   WORDPRESS_DB_PASSWORD_FILE: db_userpass
+   WORDPRESS_DB_NAME_FILE: db_dbname
+  secrets:
+   - db_username
+   - db_userpass
+   - db_dbname
+  networks:
+   - inception
+  depends_on:
+   - mariadb
+
  mariadb:
   container_name: mariadb
   image: mariadb:0
   build: ./requirements/mariadb/
+  ports:
+   - 3306:3306
   environment:
    MARIADB_ROOT_PASSWORD_FILE: /run/secrets/db_root_password
    MARIADB_MYSQLPASS_FILE: /run/secrets/db_mysqlpass
@@ -24,6 +65,11 @@ services:
    - mariadb_data:/var/lib/mysql/
    - ./requirements/mariadb/conf/my.cnf:/etc/my.cnf
    - ./requirements/mariadb/conf/my.cnf.d/:/etc/my.cnf.d
+  networks:
+   - inception
+
+networks:
+ inception:
 
 volumes:
  mariadb_data:
@@ -32,6 +78,12 @@ volumes:
    type: none
    o: "bind, rw"
    device: "/home/huakbas/data/db"
+ wordpress_site:
+  name: wordpress-website
+  driver_opts:
+   type: none
+   o: "bind, rw"
+   device: "/home/huakbas/data/wp"
 
 secrets:
  db_root_password:
