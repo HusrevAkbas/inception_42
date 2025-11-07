@@ -14,6 +14,7 @@ services:
    - inception
   depends_on:
    - wordpress
+#  user: 1000:1000
 
  wordpress:
   container_name: wordpress
@@ -22,7 +23,7 @@ services:
   ports:
    - 9000:9000
   volumes:
-   - ./requirements/wordpress/conf/wp.conf:/etc/php84/php-fpm.d/wp.conf:rw
+   - ./requirements/wordpress/conf/wp.conf:/etc/php84/php-fpm.d/www.conf:rw
    - wordpress_site:/var/www/html/
   environment:
    WORDPRESS_DB_HOST: mariadb:3306
@@ -37,6 +38,7 @@ services:
    - inception
   depends_on:
    - mariadb
+#  user: 1000:1000
 
  mariadb:
   container_name: mariadb
@@ -67,6 +69,7 @@ services:
    - ./requirements/mariadb/conf/my.cnf.d/:/etc/my.cnf.d
   networks:
    - inception
+#  user: 1000:1000
 
 networks:
  inception:

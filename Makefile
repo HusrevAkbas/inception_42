@@ -1,7 +1,7 @@
-LOGIN	= $(shell sed 's/LOGIN=//g' .env)
+LOGIN	= $(shell grep LOGIN srcs/.env | sed 's/LOGIN=//g')
 
 up:
-	-echo $(shell sed 's/LOGIN=//' .env)
+	-echo $(shell grep LOGIN srcs/.env | sed 's/LOGIN=//')
 	mkdir -p /home/$(LOGIN)/data/db/ /home/$(LOGIN)/data/wp/
 #	chmod -R 777 /home/$(LOGIN)/data
 	docker-compose -f ./srcs/docker-compose.yml up

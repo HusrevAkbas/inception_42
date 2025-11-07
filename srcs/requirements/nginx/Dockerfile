@@ -1,6 +1,6 @@
 FROM	alpine:3.21.5
 
-RUN	apk update; apk add --no-cache nginx
+RUN	apk update; apk add --no-cache nginx; chown -R 1000:1000 /var/lib/nginx
 
 #COPY	./tools/starter.sh ./starter.sh
 
