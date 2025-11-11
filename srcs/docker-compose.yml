@@ -6,12 +6,13 @@ services:
   image: nginx:0
   build: ./requirements/nginx/
   ports:
-   - 8080:80
+   - 443:443
+   - 80:80
   volumes:
    - ./requirements/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:rw 
    - wordpress_site:/var/www/html/
    - ../secrets/my.key:/etc/nginx/ssl/ssl.key
-   - ../secrets/my.pem:/etc/nginx/ssl/ssl.pem
+   - ../secrets/my.crt:/etc/nginx/ssl/ssl.crt
   networks:
    - inception
   depends_on:

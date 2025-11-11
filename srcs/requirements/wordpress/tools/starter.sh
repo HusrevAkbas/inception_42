@@ -1,10 +1,8 @@
 #!/bin/ash
 
-echo "This is STARTER script"
+echo "This is WORDPRESS script"
 
 set -e
-
-#DATADIR=/var/lib/mysql
 
 #signal_terminate_trap()
 #{
@@ -14,6 +12,12 @@ set -e
 #}
 
 #trap "signal_terminate_trap" SIGTERM
+
+if [ ! -f /var/www/html/wp-config.php ]; then
+	echo "wp-config.php NOT FOUND"
+else
+	cat /var/www/html/wp-config.php
+fi
 
 # -F: keeps php-fpm in foreground, -R force porgram run as root
 php-fpm84 -F -R

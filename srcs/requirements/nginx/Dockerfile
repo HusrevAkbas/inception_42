@@ -9,7 +9,7 @@ RUN	apk update; apk add --no-cache nginx; chown -R 1000:1000 /var/lib/nginx;
 # Include files with config snippets into the root context.
 # include /etc/nginx/modules/*.conf;
 # include /etc/nginx/conf.d/*.conf;
-EXPOSE	80
+EXPOSE	443
 
 #ENTRYPOINT ["./starter.sh"]
 
