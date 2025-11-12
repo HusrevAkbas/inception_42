@@ -3,8 +3,8 @@ LOGIN	= $(shell grep LOGIN srcs/.env | sed 's/LOGIN=//g')
 up:
 	-echo $(shell grep LOGIN srcs/.env | sed 's/LOGIN=//')
 	mkdir -p /home/$(LOGIN)/data/db/ /home/$(LOGIN)/data/wp/
-#	chmod -R 777 /home/$(LOGIN)/data
-	docker-compose -f ./srcs/docker-compose.yml up
+#	chmod -R 774 /home/$(LOGIN)/data
+	docker-compose -f ./srcs/docker-compose.yml up -d
 
 down:
 	docker-compose -f ./srcs/docker-compose.yml down
@@ -20,5 +20,5 @@ f: fclean
 fclean: clean
 	-docker volume rm $(shell docker volume ls -q)
 	-docker system prune -af
-	-sudo rm -rf /home/$(LOGIN)/data/*
+	-sudo rm -rf /home/$(LOGIN)/data/
 	

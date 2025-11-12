@@ -30,13 +30,17 @@ services:
    - wordpress_site:/var/www/html/
   environment:
    WORDPRESS_DB_HOST: mariadb:3306
-   WORDPRESS_DB_USER_FILE: db_username
-   WORDPRESS_DB_PASSWORD_FILE: db_userpass
-   WORDPRESS_DB_NAME_FILE: db_dbname
+   WORDPRESS_DB_USER_FILE: /run/secrets/db_username
+   WORDPRESS_DB_PASSWORD_FILE: /run/secrets/db_userpass
+   WORDPRESS_DB_NAME_FILE: /run/secrets/db_dbname
+   WORDPRESS_DB_ADMINNAME_FILE: /run/secrets/db_adminname
+   WORDPRESS_DB_ADMINPASS_FILE: /run/secrets/db_adminpass
   secrets:
    - db_username
    - db_userpass
    - db_dbname
+   - db_adminname
+   - db_adminpass
   networks:
    - inception
   depends_on:
