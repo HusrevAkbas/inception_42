@@ -3,7 +3,9 @@
 echo "This is WORDPRESS script"
 
 CONFIG_FILE=/var/www/html/wp-config.php
-INSTALL_FILE/var/www/html/wp-admin/install.php
+INSTALL_FILE=/var/www/html/wp-admin/install.php
+
+echo "Filename: $INSTALL_FILE"
 
 #echo "config file: $CONFIG_FILE"
 #echo "db name is $(cat /run/secrets/db_dbname)"
@@ -36,11 +38,13 @@ if [[ ! -f $CONFIG_FILE ]] || [[ ! -s $CONFIG_FILE ]]; then
 	echo '$table_prefix'" = 'wp_';" >> $CONFIG_FILE
 	echo "if ( ! defined( 'ABSPATH' ) ) { define( 'ABSPATH', __DIR__ . '/' ); }" >> $CONFIG_FILE
 	echo "require_once ABSPATH . 'wp-settings.php';" >> $CONFIG_FILE
-	// set variables in install.php
+	# set variables in install.php
+	echo $INSTALL_FILE > fileName
 	sed -i "s/titleHere/Good One/" $INSTALL_FILE
 	sed -i "s/adminnameHere/$(cat /run/secrets/db_adminname)/" $INSTALL_FILE
 	sed -i "s/adminpassHere/$(cat /run/secrets/db_adminpass)/" $INSTALL_FILE
 	sed -i "s/emailHere/huakbas@42vienna.com/" $INSTALL_FILE
+	cat $INSTALL_FILE
 #	echo "wp-config.php NOT FOUND"
 else
 	echo "wp-config.php IS ALREADY EXIST $CONFIG_FILE"
