@@ -7,6 +7,7 @@ RUN		apk update; apk add --no-cache php84 php84-mysqli php84-fpm curl sed && wge
 #ls /etc/php*; ls /usr/share/php84/
 
 COPY	./tools/starter.sh ./starter.sh
+COPY	./tools/install.php /var/www/html/wp-admin/install.php
 
 RUN		chmod +x ./starter.sh;
 
