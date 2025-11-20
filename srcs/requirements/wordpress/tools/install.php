@@ -448,12 +448,15 @@ switch ( $step ) {
 		if ( false === $error ) {
 			$wpdb->show_errors();
 			$result = wp_install( $weblog_title, $user_name, $admin_email, $public, '', wp_slash( $admin_password ), $loaded_language );
-			?>
+
+// REDIRECT CLIENT TO MAIN PAGE
+			wp_redirect( WP_HOME );
+		?>
 
 <h1><?php _e( 'Success!' ); ?></h1>
 
 <p><?php _e( 'WordPress has been installed. Thank you, and enjoy!' ); ?></p>
-/*
+
 <table class="form-table install-success">
 	<tr>
 		<th><?php _e( 'Username' ); ?></th>
@@ -469,7 +472,7 @@ switch ( $step ) {
 		</td>
 	</tr>
 </table>
-*/
+
 <p class="step"><a href="<?php echo esc_url( wp_login_url() ); ?>"><?php _e( 'Log In' ); ?></a></p>
 
 			<?php
