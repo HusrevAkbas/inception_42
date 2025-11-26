@@ -37,7 +37,6 @@ if [ ! -f $DATADIR/ibdata1 ]; then
 
 	# write SQL script to add users
 	echo "CREATE DATABASE IF NOT EXISTS $(cat $MARIADB_DBNAME_FILE);" > init.sql
-	echo "CREATE USER IF NOT EXISTS '$(cat $MARIADB_USERNAME_FILE)'@'%' IDENTIFIED BY '$(cat $MARIADB_USERPASS_FILE)';" >> init.sql
 	echo "CREATE USER IF NOT EXISTS '$(cat $MARIADB_ADMINNAME_FILE)'@'%' IDENTIFIED BY '$(cat $MARIADB_ADMINPASS_FILE)';" >> init.sql
 	echo "GRANT ALL PRIVILEGES ON $(cat $MARIADB_DBNAME_FILE).* TO '$(cat $MARIADB_ADMINNAME_FILE)'@'%';" >> init.sql
 	echo "FLUSH PRIVILEGES;" >> init.sql
