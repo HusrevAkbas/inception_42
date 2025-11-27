@@ -60,5 +60,5 @@ else
 	echo "wp-config.php IS ALREADY EXIST $CONFIG_FILE"
 fi
 
-# -F: keeps php-fpm in foreground, -R force porgram run as root
-php-fpm84 -F -R
+# -F: keeps php-fpm in foreground, -R force porgram run as root, exec makes php-fpm run as pid 1
+exec php-fpm84 -F -R
