@@ -30,8 +30,8 @@ if [[ ! -f $CONFIG_FILE ]] || [[ ! -s $CONFIG_FILE ]]; then
 	echo "define( 'DB_HOST', '$WORDPRESS_DB_HOST' );" >> $CONFIG_FILE
 	echo "define( 'DB_CHARSET', 'utf8mb4' );" >> $CONFIG_FILE
 	echo "define( 'DB_COLLATE', '' );" >> $CONFIG_FILE
-	echo "define( 'WP_HOME', 'https://huakbas.42.fr');" >> $CONFIG_FILE
-	echo "define( 'WP_SITEURL', 'https://huakbas.42.fr');" >> $CONFIG_FILE
+	echo "define( 'WP_HOME', 'https://$DOMAIN_NAME');" >> $CONFIG_FILE
+	echo "define( 'WP_SITEURL', 'https://$DOMAIN_NAME');" >> $CONFIG_FILE
 	echo "$SALT" >> $CONFIG_FILE
 	echo '$table_prefix'" = 'inception_';" >> $CONFIG_FILE
 	echo "if ( ! defined( 'ABSPATH' ) ) { define( 'ABSPATH', __DIR__ . '/' ); }" >> $CONFIG_FILE

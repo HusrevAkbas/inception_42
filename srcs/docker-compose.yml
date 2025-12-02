@@ -37,6 +37,7 @@ services:
    WORDPRESS_PASS_FILE: /run/secrets/wp_userpass
    WORDPRESS_ADMINNAME_FILE: /run/secrets/wp_adminname
    WORDPRESS_ADMINPASS_FILE: /run/secrets/wp_adminpass
+   DOMAIN_NAME: $DOMAIN_NAME
   secrets:
    - db_username
    - db_password
