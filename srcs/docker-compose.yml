@@ -83,13 +83,13 @@ volumes:
   driver_opts:
    type: none
    o: "bind, rw"
-   device: "/home/huakbas/data/db"
+   device: "/home/$LOGIN/data/db"
  wordpress_site:
   name: wordpress-website
   driver_opts:
    type: none
    o: "bind, rw"
-   device: "/home/huakbas/data/wp"
+   device: "/home/$LOGIN/data/wp"
 
 secrets:
  db_password:
