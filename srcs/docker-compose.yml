@@ -38,6 +38,8 @@ services:
    WORDPRESS_ADMINNAME_FILE: /run/secrets/wp_adminname
    WORDPRESS_ADMINPASS_FILE: /run/secrets/wp_adminpass
    DOMAIN_NAME: $DOMAIN_NAME
+   WP_ADMIN_EMAIL: $WP_ADMIN_EMAIL
+   WP_USER_EMAIL: $WP_USER_EMAIL
   secrets:
    - db_username
    - db_password

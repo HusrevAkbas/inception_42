@@ -5,7 +5,7 @@ SECRET_FILES= db_password.txt ssl.key wp_db_name.txt db_username.txt\
 	wp_user_password.txt
 SECRETS=$(addprefix $(SECRETS_DIR)/, $(SECRET_FILES))
 
-up: check-secrets
+up: check-secrets check-dotenv
 	mkdir -p /home/$(LOGIN)/data/db/ /home/$(LOGIN)/data/wp/
 	-docker-compose -f ./srcs/docker-compose.yml up -d
 
@@ -20,6 +20,12 @@ check-secrets:
 			exit 1;\
 		fi; \
 	done
+
+check-dotenv:
+	@if [ ! -f ./srcs/.env ]; then \
+		echo ".env file must be provided in 'srcs' folder"; \
+		exit 1; \
+	fi
 
 down:
 	docker-compose -f ./srcs/docker-compose.yml down
@@ -37,4 +43,4 @@ fclean: down clean
 	-docker system prune -af
 	-sudo rm -rf /home/$(LOGIN)/data/
 
-.PHONY: up down re c clean f fclean check-secrets
+.PHONY: up down re c clean f fclean check-secrets check-dotenv

@@ -42,13 +42,13 @@ if [[ ! -f $CONFIG_FILE ]] || [[ ! -s $CONFIG_FILE ]]; then
 	sed -i "s/titleHere/Good One/" $INSTALL_FILE
 	sed -i "s/adminnameHere/$(cat /run/secrets/wp_adminname)/" $INSTALL_FILE
 	sed -i "s/adminpassHere/$(cat /run/secrets/wp_adminpass)/" $INSTALL_FILE
-	sed -i "s/emailHere/huakbas@42vienna.com/" $INSTALL_FILE
+	sed -i "s/emailHere/$WP_ADMIN_EMAIL/" $INSTALL_FILE
 
 	# add other user
 	echo "function other_account(){" >> temp
 	echo '$user = '"'$(cat /run/secrets/wp_username)';" >> temp
 	echo '$pass = '"'$(cat /run/secrets/wp_userpass)';" >> temp
-	echo '$email'" = 'email@domain.com';" >> temp
+	echo '$email'" = '$WP_USER_EMAIL';" >> temp
 	echo 'if ( !username_exists( $user ) && !email_exists( $email ) ) {' >> temp
 	echo '$user_id = wp_create_user( $user, $pass, $email );' >> temp
 	echo '$user = new WP_User( $user_id );' >> temp
