@@ -35,7 +35,62 @@ This guide explains how to set up the development environment, build and run the
 	- WP_ADMIN_EMAIL=
 	- WP_USER_EMAIL=
 
-6. Run command to start project:
+## Manage project with Makefile commands
+
+1. Run command to start project:
     ```bash
     make up
+
+2. Run command to stop containers project:
+    ```bash
+    make down
+
+3. Run command to remove containers and images:
+    ```bash
+    make clean
+
+4. Run command to remove containers, images, database and wordpress files:
+    ```bash
+    make fclean
+
+5. Run command to generate SSL certificate and key:
+    ```bash
+    make keygen
+
+## Common Docker commands to manage containers
+
+1. List containers
+    ```bash
+    docker ps
+
+2. List images
+    ```bash
+    docker images
+
+3. Access a container
+    ```bash
+    docker exec -it <container name> ash
+
+4. List volumes
+    ```bash
+    docker volume ls
+
+5. Inspect a volume
+    ```
+    docker volume inspect <volume name>
+
+6. List networks
+    ```bash
+    docker network ls
+
+7. Inspect a network
+    ```bash
+    docker network inspect <network name>
+
+## Data storage
+
+`LOGIN` is the value provided in **.env** file
+
+1. Database is mount on /home/`LOGIN`/data/db
+2. Wordpress is mount on /home/`LOGIN`/data/wp
 
