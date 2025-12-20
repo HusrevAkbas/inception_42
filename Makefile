@@ -13,12 +13,13 @@ up: check-secrets check-dotenv
 
 check-secrets:
 	@if [ ! -d secrets ]; then \
-		echo "Secret files must be provided in 'secrets' directory" \
+		echo "Secret files must be provided in 'secrets' directory" ;\
 		exit 1 ;\
 	fi
 	@for f in $(SECRETS); do \
 		if [ ! -s $$f ]; then \
 			echo "File is missing: \e[1;31m$$f\e[0m"; \
+			echo "If ssl.crt or ssl.key is missing, generate one using 'make keygen' command";\
 			exit 1;\
 		fi; \
 	done
@@ -37,6 +38,13 @@ check-dotenv:
 	done
 	@echo "All .env variables are present"
 
+keygen:
+	mkdir -p $(SECRETS_DIR)
+	openssl req \
+		-newkey rsa:4096 -nodes -keyout $(SECRETS_DIR)/ssl.key \
+		-x509 -config srcs/crt.conf -sha256 -days 365 \
+		-out $(SECRETS_DIR)/ssl.crt
+
 down:
 	docker-compose -f ./srcs/docker-compose.yml down
 
@@ -45,7 +53,7 @@ re: clean up
 c: clean
 clean: down
 	-docker rm $(shell docker ps -aq)
-	-docker rmi $(shell docker images -q)
+	-docker image rm $(shell docker images -aq)
 
 f: fclean
 fclean: down clean
@@ -53,4 +61,4 @@ fclean: down clean
 	-docker system prune -af
 	-sudo rm -rf /home/$(LOGIN)/data/
 
-.PHONY: up down re c clean f fclean check-secrets check-dotenv
+.PHONY: up down re c clean f fclean check-secrets check-dotenv keygen
