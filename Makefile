@@ -7,9 +7,14 @@ SECRETS=$(addprefix $(SECRETS_DIR)/, $(SECRET_FILES))
 DOTENV_FILE = ./srcs/.env
 REQUIRED_VARIABLES = LOGIN DOMAIN_NAME WP_ADMIN_EMAIL WP_USER_EMAIL
 
-up: check-secrets check-dotenv
-	mkdir -p /home/$(LOGIN)/data/db/ /home/$(LOGIN)/data/wp/
+up: check-secrets check-dotenv check-deps
 	-docker-compose -f ./srcs/docker-compose.yml up -d
+
+check-deps:
+	mkdir -p /home/$(LOGIN)/data/db/ /home/$(LOGIN)/data/wp/
+	@if [ ! -s srcs/requirements/wordpress/wordpress-6.8.3.tar.gz ]; then \
+		wget -O srcs/requirements/wordpress/wordpress-6.8.3.tar.gz https://wordpress.org/wordpress-6.8.3.tar.gz; \
+	fi
 
 check-secrets:
 	@if [ ! -d secrets ]; then \
@@ -61,4 +66,4 @@ fclean: down clean
 	-docker system prune -af
 	-sudo rm -rf /home/$(LOGIN)/data/
 
-.PHONY: up down re c clean f fclean check-secrets check-dotenv keygen
+.PHONY: up down re c clean f fclean check-secrets check-dotenv keygen check-deps
