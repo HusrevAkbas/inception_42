@@ -3,7 +3,7 @@ FROM	alpine:3.21.5
 COPY	./wordpress-6.8.3.tar.gz /tmp/wordpress.tar.gz
 
 RUN		apk update; \
-		apk add --no-cache php84 php84-mysqli php84-fpm curl sed; \
+		apk add --no-cache php84 php84-mysqli php84-fpm php84-gd php84-mbstring php84-zip php84-curl php84-xml php84-openssl curl sed; \
 		mkdir -p /var/www/html; \
 		tar -xzf /tmp/wordpress.tar.gz -C /tmp; \
 		mv /tmp/wordpress/* /var/www/html/.
